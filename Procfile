@@ -1,1 +1,1 @@
-web: python web_service.py --log-file -
+web: python web_service.py ${PORT} --log-file -
