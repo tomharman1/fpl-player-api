@@ -67,7 +67,8 @@ def get_price_changes():
 
     # arrange by transfers in
     # print df.sort_values(by='net_transfers_in')
-    most_likely_players_to_rise_in_price = df.sort_values(by='target_percentage').tail()
+    # .tail() will grab the last 5
+    most_likely_players_to_rise_in_price = df.sort_values(by='target_percentage')
     to_json = most_likely_players_to_rise_in_price.to_json(orient='records')
     parsedAsPyObj = json.loads(to_json)
     return parsedAsPyObj
