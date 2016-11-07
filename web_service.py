@@ -3,6 +3,7 @@ import os
 
 from flask import Flask, jsonify
 import fiso_scraper
+import requests_cache
 
 app = Flask(__name__)
 
@@ -19,6 +20,9 @@ def get_tasks():
 
 
 if __name__ == '__main__':
+    requests_cache.install_cache('fpl_player_api_cache', backend='sqlite', expire_after=30 * 60)
+    requests_cache.clear()
+
     # Bind to PORT if defined, otherwise default to 5000.
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)

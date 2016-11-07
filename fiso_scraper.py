@@ -2,10 +2,14 @@
 import json
 import pandas as pd
 import requests
+import requests_cache
 from bs4 import BeautifulSoup
 
 # remote data source
 url = 'http://crackthecode.fiso.co.uk/blog/'
+
+requests_cache.install_cache('fpl_player_api_cache', backend='sqlite', expire_after=300)
+requests_cache.clear()
 
 
 def get_price_changes():
@@ -70,7 +74,7 @@ def get_price_changes():
     # .tail() will grab the last 5
     most_likely_players_to_rise_in_price = df.sort_values(by='target_percentage')
     to_json = most_likely_players_to_rise_in_price.to_json(orient='records')
-    parsedAsPyObj = json.loads(to_json)
-    return parsedAsPyObj
+    parsed_as_py_obj = json.loads(to_json)
+    return parsed_as_py_obj
     # return json.dumps(parsedAsPyObj, indent=4)
     # print df.head()
