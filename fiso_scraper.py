@@ -8,8 +8,35 @@ from bs4 import BeautifulSoup
 # remote data source
 url = 'http://crackthecode.fiso.co.uk/blog/'
 
+short_team_name_map = dict({
+    'Arsenal': 'ARS',
+    'Bournemouth': 'BOU',
+    'Man City': 'MCI',
+    'West Brom': 'WBA',
+    'Middlesbrough': 'MID',
+    'Watford': 'WAT',
+    'Everton': 'EVE',
+    'Chelsea': 'CHE',
+    'Spurs': 'TOT',
+    'West Ham': 'WHU',
+    'Sunderland': 'SUN',
+    'Liverpool': 'LIV',
+    'Leicester': 'LEI',
+    'Crystal Palace': 'CRY',
+    'Burnley': 'BUR',
+    'Stoke': 'STO',
+    'Southampton': 'SOU',
+    'Swansea': 'SWA',
+    'Man Utd': 'MUN',
+    'Hull': 'HUL',
+})
+
 requests_cache.install_cache('fpl_player_api_cache', backend='sqlite', expire_after=300)
 requests_cache.clear()
+
+
+def get_short_team_name(team_name):
+    return short_team_name_map[team_name]
 
 
 def get_price_changes():
@@ -22,6 +49,7 @@ def get_price_changes():
     player_name = []
     position = []
     team = []
+    short_team_name = []
     price = []
     ownership = []
     net_transfers_in = []
@@ -45,6 +73,7 @@ def get_price_changes():
 
         col_3 = col[3].string.strip()
         team.append(col_3)
+        short_team_name.append(get_short_team_name(col_3))
 
         col_4 = col[4].string.strip()
         price.append(float(col_4))
@@ -62,6 +91,7 @@ def get_price_changes():
                'player_name_short': player_name_short,
                'position': position,
                'team': team,
+               'short_team_name': short_team_name,
                'price': price,
                'ownership': ownership,
                'net_transfers_in': net_transfers_in,
