@@ -51,9 +51,11 @@ def get_price_changes():
     team = []
     short_team_name = []
     price = []
+    price_formatted = []
     ownership = []
     net_transfers_in = []
     target_percentage = []
+    target_percentage_formatted = []
     player_name_short = []
 
     table = soup.find(class_='table')
@@ -77,6 +79,7 @@ def get_price_changes():
 
         col_4 = col[4].string.strip()
         price.append(float(col_4))
+        price_formatted.append(col_4 + 'm')
 
         col_5 = col[5].string.strip()
         ownership.append(col_5)
@@ -86,6 +89,7 @@ def get_price_changes():
 
         col_7 = col[7].string.strip()
         target_percentage.append(float(col_7))
+        target_percentage_formatted.append(col_7 + '%')
 
     columns = {'player_name': player_name,
                'player_name_short': player_name_short,
@@ -93,9 +97,11 @@ def get_price_changes():
                'team': team,
                'short_team_name': short_team_name,
                'price': price,
+               'price_formatted': price_formatted,
                'ownership': ownership,
                'net_transfers_in': net_transfers_in,
-               'target_percentage': target_percentage}
+               'target_percentage': target_percentage,
+               'target_percentage_formatted': target_percentage_formatted}
 
     df = pd.DataFrame(columns)
 
