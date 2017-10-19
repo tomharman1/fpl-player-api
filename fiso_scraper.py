@@ -29,6 +29,9 @@ short_team_name_map = dict({
     'Swansea': 'SWA',
     'Man Utd': 'MUN',
     'Hull': 'HUL',
+    'Brighton': 'BRH',
+    'Newcastle': 'NEW',
+    'Huddersfield': 'HDD',
 })
 
 requests_cache.install_cache('fpl_player_api_cache', backend='sqlite', expire_after=300)
@@ -36,7 +39,7 @@ requests_cache.clear()
 
 
 def get_short_team_name(team_name):
-    return short_team_name_map[team_name]
+    return short_team_name_map.get(team_name, "???")
 
 
 def get_price_changes():
