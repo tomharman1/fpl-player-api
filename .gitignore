@@ -81,6 +81,7 @@ celerybeat-schedule
 # virtualenv
 venv/
 ENV/
+fpl_player_api_virtualenv/
 
 # Spyder project settings
 .spyderproject
